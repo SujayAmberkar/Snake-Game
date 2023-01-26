@@ -12,11 +12,16 @@ public class SpawnPlayers : MonoBehaviour
     public float miny;
     public float maxY;
 
-
+    void Start() {
+        MultiplayerSpawning();
+    }
 
     void MultiplayerSpawning(){
-        Vector2 randomPosition = new Vector2(Random.Range(minX,maxX),Random.Range(miny,maxY));
-        PhotonNetwork.Instantiate(playerPrefab.name,randomPosition,Quaternion.identity);
+        if(GameState.isMultiplayer==true){
+            Vector2 randomPosition = new Vector2(Random.Range(minX,maxX),Random.Range(miny,maxY));
+            PhotonNetwork.Instantiate(playerPrefab.name,randomPosition,Quaternion.identity);
+        }
+        
     }
 
     

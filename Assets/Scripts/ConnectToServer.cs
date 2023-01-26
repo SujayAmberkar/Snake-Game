@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
-    public bool isMultiplayerMode = false;
+    
+
     // Once connected to the server Join the lobby
     public override void OnConnectedToMaster(){ 
         PhotonNetwork.JoinLobby();
         Debug.Log("Connected!!");
-        isMultiplayerMode = true;
+        GameState.isMultiplayer = true;
     }
 
     // Once the player joined the lobby load the create and join lobby scene
