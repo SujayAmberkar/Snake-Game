@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    public Camera mainCamera;
+    private Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -18,9 +18,15 @@ public class Food : MonoBehaviour
     }
 
     public void PositionRandomizer(){
-        float xPos = Mathf.Round(Random.Range(mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0)).x, mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x));
-        float yPos = Mathf.Round(Random.Range(mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0)).y, mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y));
+        float xPos = Mathf.Round(Random.Range(mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0)).x+1, mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x-1));
+        float yPos = Mathf.Round(Random.Range(mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0)).y+1, mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y-1));
         Vector3 randomPos = new Vector3(xPos, yPos, 0);
         transform.position = randomPos;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag=="Snake"){
+            PositionRandomizer();
+        }
     }
 }

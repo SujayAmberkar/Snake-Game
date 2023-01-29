@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using Photon.Pun;
 
 public class FoodEating : MonoBehaviour
 {
-    private int _Score = 0;
-    private int _Snakelength=0;
-    public TextMeshProUGUI ScoreUI;
-    public Food food;
     public SnakeController snake;
+    public FoodSpawner spawnFood;
 
     void Start(){
         Debug.Log("Start");
@@ -19,23 +16,28 @@ public class FoodEating : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
         if(other.tag=="Food"){
             Debug.Log("Collision");
+            spawnFood.SpawnFood();
             ScoreIncrement();
-            LengthIncrement();
-            food.PositionRandomizer();
-            snake.SpeedIncrease();
+            ScoreIncrementMultiPlayer();
             snake.AddSegment();
         }
     }
 
     void ScoreIncrement(){
-        _Score+=1;
-        ScoreUI.SetText(_Score.ToString());
+        if(!GameState.isMultiplayer)
+            GameState.Score+=1;
     }
 
-    void LengthIncrement(){
-        _Snakelength+=1;
+    void  ScoreIncrementMultiPlayer(){
+        if(GameState.isMultiplayer){
+            if(PhotonNetwork.LocalPlayer.ActorNumber==1){
+                GameState.Score1++;
+            }
+            if(PhotonNetwork.LocalPlayer.ActorNumber==2){
+                GameState.Score2++;
+            }
+        }
     }
-
 
     
 
