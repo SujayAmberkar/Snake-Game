@@ -23,4 +23,24 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom(){
         PhotonNetwork.LoadLevel("SinglePlayer");
     }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, "Not able to join room");
+        Debug.Log("Join failed");
+        Debug.Log(returnCode);
+    }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+        Debug.Log("Room created");
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        Debug.Log("Create room failed");
+        Debug.Log(returnCode);
+    }
 }

@@ -10,9 +10,9 @@ public class FoodSpawner : MonoBehaviour
     int foodType = 0;
 
     void Start() {
-        Instantiate(foodType1,new Vector3(0,0,0),Quaternion.identity);
+        // Instantiate(foodType1,new Vector3(0,0,0),Quaternion.identity);
         Instantiate(foodType2,new Vector3(0,0,0),Quaternion.identity);
-        SpawnFood();  
+        // SpawnFood();  
     }
 
     public void SpawnFood()
